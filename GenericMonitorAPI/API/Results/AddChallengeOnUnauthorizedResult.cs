@@ -28,7 +28,7 @@ namespace GenericMonitorAPI.API.Results
             HttpResponseMessage response = await InnerResult.ExecuteAsync(cancellationToken);
             if (response.StatusCode == HttpStatusCode.Unauthorized)
             {
-                if (!response.Headers.WwwAuthenticate.Any((h) => h.Scheme == Challenge.Scheme))   
+                if (!response.Headers.WwwAuthenticate.Any((h) => h.Scheme == Challenge.Scheme)) 
                     response.Headers.WwwAuthenticate.Add(Challenge);
             }
 

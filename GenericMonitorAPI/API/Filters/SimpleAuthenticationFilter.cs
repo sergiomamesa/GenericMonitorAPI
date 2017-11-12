@@ -28,13 +28,13 @@ namespace GenericMonitorAPI.API.Filters
                 context.ErrorResult = new AuthenticationErrorResult("Missing credentials", request);
                 return;
             }
-                
+
             if (authorization.Scheme != "Basic")
             {
                 context.ErrorResult = new AuthenticationErrorResult("Missing credentials", request);
                 return;
             }
-                
+
 
             if (String.IsNullOrEmpty(authorization.Parameter))
             {
@@ -54,7 +54,7 @@ namespace GenericMonitorAPI.API.Filters
 
         public Task ChallengeAsync(HttpAuthenticationChallengeContext context, CancellationToken cancellationToken)
         {
-            var challenge = new AuthenticationHeaderValue("Basic");
+            var challenge = new AuthenticationHeaderValue("Basic", "Full access");
             context.Result = new AddChallengeOnUnauthorizedResult(challenge, context.Result);
             return Task.FromResult(0);
         }
