@@ -11,13 +11,16 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http.Filters;
+using System.Web.Http.Controllers;
+using System.Web.Http;
 
 namespace GenericMonitorAPI.API.Filters
 {
-    public class SimpleAuthenticationFilter : IAuthenticationFilter
+
+    public class SimpleAuthenticationFilter : Attribute, IAuthenticationFilter
     {
         public bool AllowMultiple => false;
-
+        
         public async Task AuthenticateAsync(HttpAuthenticationContext context, CancellationToken cancellationToken)
         {
             HttpRequestMessage request = context.Request;
@@ -54,7 +57,7 @@ namespace GenericMonitorAPI.API.Filters
 
         public Task ChallengeAsync(HttpAuthenticationChallengeContext context, CancellationToken cancellationToken)
         {
-            var challenge = new AuthenticationHeaderValue("Basic", "Full access");
+            var challenge = new AuthenticationHeaderValue("Basic");
             context.Result = new AddChallengeOnUnauthorizedResult(challenge, context.Result);
             return Task.FromResult(0);
         }

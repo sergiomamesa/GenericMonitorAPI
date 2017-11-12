@@ -11,8 +11,7 @@ namespace GenericMonitorAPI
         public static void Register(HttpConfiguration config)
         {
             // Configuración y servicios de API web
-            config.Filters.Add(new SimpleAuthenticationFilter());
-
+            
             // Rutas de API web
             config.MapHttpAttributeRoutes();
 

@@ -9,9 +9,11 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using GenericMonitorAPI.Context;
+using GenericMonitorAPI.API.Filters;
 
 namespace GenericMonitorAPI.Controllers
 {
+
     public class MonitorController : ApiController
     {
         private GenericMonitorAPIContext db = new GenericMonitorAPIContext();
@@ -20,51 +22,14 @@ namespace GenericMonitorAPI.Controllers
         {
         }
 
-        // GET: api/Monitor
+        [AllowAnonymous]
         public IQueryable<Monitorization> GetMonitorizations()
         {
             return db.Monitorizations;
         }
 
-        // GET: api/Monitor/5
-        [ResponseType(typeof(Monitorization))]
-        public IHttpActionResult GetMonitorization(int id)
-        {
-            Monitorization monitorization = db.Monitorizations.Find(id);
-            if (monitorization == null)
-                return NotFound();
-
-            return Ok(monitorization);
-        }
-
-        // PUT: api/Monitor/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutMonitorization(int id, Monitorization monitorization)
-        {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            if (id != monitorization.Key)
-                return BadRequest();
-
-            db.Entry(monitorization).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MonitorizationExists(id))
-                    return NotFound();
-
-                throw;
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // POST: api/Monitor
+        [Authorize(Roles = "Writer")]
+        [SimpleAuthenticationFilter]
         [ResponseType(typeof(Monitorization))]
         public IHttpActionResult PostMonitorization(Monitorization monitorization)
         {
@@ -77,30 +42,11 @@ namespace GenericMonitorAPI.Controllers
             return CreatedAtRoute("DefaultApi", new { id = monitorization.Key }, monitorization);
         }
 
-        // DELETE: api/Monitor/5
-        [ResponseType(typeof(Monitorization))]
-        public IHttpActionResult DeleteMonitorization(int id)
-        {
-            Monitorization monitorization = db.Monitorizations.Find(id);
-            if (monitorization == null)
-                return NotFound();
-
-            db.Monitorizations.Remove(monitorization);
-            db.SaveChanges();
-
-            return Ok(monitorization);
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
                 db.Dispose();
             base.Dispose(disposing);
-        }
-
-        private bool MonitorizationExists(int id)
-        {
-            return db.Monitorizations.Count(e => e.Key == id) > 0;
         }
     }
 }
