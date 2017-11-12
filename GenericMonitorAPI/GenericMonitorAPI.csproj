@@ -152,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\Filters\SimpleAuthenticationFilter.cs" />
+    <Compile Include="API\Results\AddChallengeOnUnauthorizedResult.cs" />
     <Compile Include="API\Results\AuthenticationErrorResult.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />

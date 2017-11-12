@@ -25,7 +25,8 @@ namespace GenericMonitorAPI.API.Results
             var response = new HttpResponseMessage
             {
                 Content = new StringContent(error),
-                RequestMessage = request
+                RequestMessage = request,
+                StatusCode = System.Net.HttpStatusCode.Unauthorized
             };
 
             return Task.FromResult(response);

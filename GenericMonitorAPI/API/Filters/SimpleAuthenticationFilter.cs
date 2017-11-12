@@ -18,7 +18,7 @@ namespace GenericMonitorAPI.API.Filters
     {
         public bool AllowMultiple => false;
 
-        public Task AuthenticateAsync(HttpAuthenticationContext context, CancellationToken cancellationToken)
+        public async Task AuthenticateAsync(HttpAuthenticationContext context, CancellationToken cancellationToken)
         {
             HttpRequestMessage request = context.Request;
             AuthenticationHeaderValue authorization = request.Headers.Authorization;
@@ -26,36 +26,37 @@ namespace GenericMonitorAPI.API.Filters
             if (authorization == null)
             {
                 context.ErrorResult = new AuthenticationErrorResult("Missing credentials", request);
-                return Task.CompletedTask;
+                return;
             }
-
-            if (authorization.Scheme != "Token")
+                
+            if (authorization.Scheme != "Basic")
             {
                 context.ErrorResult = new AuthenticationErrorResult("Missing credentials", request);
-                return Task.CompletedTask;
+                return;
             }
+                
 
             if (String.IsNullOrEmpty(authorization.Parameter))
             {
                 context.ErrorResult = new AuthenticationErrorResult("Missing credentials", request);
-                return Task.CompletedTask;
+                return;
             }
 
+            //TODO: Here we will need "await"
             IPrincipal principal = new PrincipalAuthenticationService().ByToken(authorization.Parameter);
             if (principal == null)
             {
                 context.ErrorResult = new AuthenticationErrorResult("Invalid token", request);
-                return Task.CompletedTask;
             }
 
             context.Principal = principal;
-            return Task.CompletedTask;
         }
 
         public Task ChallengeAsync(HttpAuthenticationChallengeContext context, CancellationToken cancellationToken)
         {
-            //TODO: Implement this
-            return Task.CompletedTask;
+            var challenge = new AuthenticationHeaderValue("Basic");
+            context.Result = new AddChallengeOnUnauthorizedResult(challenge, context.Result);
+            return Task.FromResult(0);
         }
     }
 }
