@@ -3,6 +3,7 @@ using GenericMonitorAPI.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Principal;
@@ -23,10 +24,16 @@ namespace GenericMonitorAPI.API.Filters
             AuthenticationHeaderValue authorization = request.Headers.Authorization;
 
             if (authorization == null)
+            {
+                context.ErrorResult = new AuthenticationErrorResult("Missing credentials", request);
                 return Task.CompletedTask;
+            }
 
             if (authorization.Scheme != "Token")
+            {
+                context.ErrorResult = new AuthenticationErrorResult("Missing credentials", request);
                 return Task.CompletedTask;
+            }
 
             if (String.IsNullOrEmpty(authorization.Parameter))
             {
@@ -34,8 +41,7 @@ namespace GenericMonitorAPI.API.Filters
                 return Task.CompletedTask;
             }
 
-            String token = authorization.Parameter;
-            IPrincipal principal = new PrincipalAuthenticationService().ByToken(token);
+            IPrincipal principal = new PrincipalAuthenticationService().ByToken(authorization.Parameter);
             if (principal == null)
             {
                 context.ErrorResult = new AuthenticationErrorResult("Invalid token", request);
@@ -48,6 +54,7 @@ namespace GenericMonitorAPI.API.Filters
 
         public Task ChallengeAsync(HttpAuthenticationChallengeContext context, CancellationToken cancellationToken)
         {
+            //TODO: Implement this
             return Task.CompletedTask;
         }
     }

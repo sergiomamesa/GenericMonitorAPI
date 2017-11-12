@@ -19,6 +19,6 @@ namespace GenericMonitorAPI.Context
         {
         }
 
-        public System.Data.Entity.DbSet<GenericMonitorAPI.Context.Monitorization> Monitorizations { get; set; }
+        public DbSet<Monitorization> Monitorizations { get; set; }
     }
 }
