@@ -32,7 +32,7 @@ namespace GenericMonitorAPI.Controllers
             db.Monitorizations.Add(monitorization);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = monitorization.Key }, monitorization);
+            return CreatedAtRoute("DefaultApi", new { id = monitorization.Id }, monitorization);
         }
 
         protected override void Dispose(bool disposing)

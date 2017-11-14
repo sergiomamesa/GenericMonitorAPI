@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using GenericMonitorAPI.Models;
 
 namespace GenericMonitorAPI.Context
 {
@@ -8,10 +10,11 @@ namespace GenericMonitorAPI.Context
     public class Monitorization : IMonitorizable
     {
         [Key]
-        public int Key { get; set; }
+        public int Id { get; set; }
+        [Required]
         public string Title { get; set; }
         public string Message { get; set; }
-        public DateTime CreationDate { get; private set; }
+        public DateTime CreationDate { get; set; }
 
         public Monitorization()
         {

@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using GenericMonitorAPI.Models;
 
 namespace GenericMonitorAPI.Context
 {
@@ -16,5 +17,10 @@ namespace GenericMonitorAPI.Context
         }
 
         public DbSet<Monitorization> Monitorizations { get; set; }
+
+        public DbSet<User> Users { get; set; }
+
+        public DbSet<Role> Roles { get; set; }
+
     }
 }

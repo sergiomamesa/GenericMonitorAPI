@@ -1,16 +1,24 @@
-﻿using System.Security.Principal;
+﻿using System.Linq;
+using System.Security.Principal;
+using System.Threading.Tasks;
+using GenericMonitorAPI.Context;
 
 namespace GenericMonitorAPI.Services
 {
     public class PrincipalAuthenticationService
     {
-        internal IPrincipal ByToken(string token)
+        private readonly GenericMonitorAPIContext db = new GenericMonitorAPIContext();
+
+        internal Task<IPrincipal> ByToken(string token)
         {
-            //TODO: Add validation logic
+            var user = db.Users.FirstOrDefault(i => i.Token == token);
+            if (user == null)
+                return Task.FromResult<IPrincipal>(null);
 
-            IIdentity identity = new GenericIdentity("Monitor Writer");
+            var identity = new GenericIdentity(user.Name);
+            var principal = new GenericPrincipal(identity, user.Roles.Select(i => i.Name).ToArray());
 
-            return new GenericPrincipal(identity, new[] { "Writer" });
+            return Task.FromResult<IPrincipal>(principal);
         }
     }
 }

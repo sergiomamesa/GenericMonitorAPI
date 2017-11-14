@@ -38,7 +38,7 @@ namespace GenericMonitorAPI.API.Filters
                 return;
             }
 
-            var principal = new PrincipalAuthenticationService().ByToken(authenticationHeader.Parameter);
+            var principal = await new PrincipalAuthenticationService().ByToken(authenticationHeader.Parameter);
             if (principal == null)
             {
                 context.ErrorResult = new AuthenticationErrorResult("Invalid token", request);
