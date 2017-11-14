@@ -1,52 +1,44 @@
 ﻿using GenericMonitorAPI.API.Results;
 using GenericMonitorAPI.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http.Filters;
-using System.Web.Http.Controllers;
-using System.Web.Http;
 
 namespace GenericMonitorAPI.API.Filters
 {
 
     public class SimpleAuthenticationFilter : Attribute, IAuthenticationFilter
     {
+        private const string SCHEME = "Basic";
+
         public bool AllowMultiple => false;
         
         public async Task AuthenticateAsync(HttpAuthenticationContext context, CancellationToken cancellationToken)
         {
-            HttpRequestMessage request = context.Request;
-            AuthenticationHeaderValue authorization = request.Headers.Authorization;
+            var request = context.Request;
+            var authenticationHeader = request.Headers.Authorization;
 
-            if (authorization == null)
+            if (authenticationHeader == null)
             {
                 context.ErrorResult = new AuthenticationErrorResult("Missing credentials", request);
                 return;
             }
 
-            if (authorization.Scheme != "Basic")
+            if (authenticationHeader.Scheme != SCHEME)
             {
                 context.ErrorResult = new AuthenticationErrorResult("Missing credentials", request);
                 return;
             }
 
-
-            if (String.IsNullOrEmpty(authorization.Parameter))
+            if (string.IsNullOrEmpty(authenticationHeader.Parameter))
             {
                 context.ErrorResult = new AuthenticationErrorResult("Missing credentials", request);
                 return;
             }
 
-            //TODO: Here we will need "await"
-            IPrincipal principal = new PrincipalAuthenticationService().ByToken(authorization.Parameter);
+            var principal = new PrincipalAuthenticationService().ByToken(authenticationHeader.Parameter);
             if (principal == null)
             {
                 context.ErrorResult = new AuthenticationErrorResult("Invalid token", request);
@@ -57,7 +49,7 @@ namespace GenericMonitorAPI.API.Filters
 
         public Task ChallengeAsync(HttpAuthenticationChallengeContext context, CancellationToken cancellationToken)
         {
-            var challenge = new AuthenticationHeaderValue("Basic");
+            var challenge = new AuthenticationHeaderValue(SCHEME, "Realm here");
             context.Result = new AddChallengeOnUnauthorizedResult(challenge, context.Result);
             return Task.FromResult(0);
         }

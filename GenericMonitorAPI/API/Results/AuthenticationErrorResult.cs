@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Http;
 
 namespace GenericMonitorAPI.API.Results
 {
     public class AuthenticationErrorResult : IHttpActionResult
     {
-        private string error;
-        private HttpRequestMessage request;
+        private readonly string error;
+        private readonly HttpRequestMessage request;
 
         public AuthenticationErrorResult(string error, HttpRequestMessage request)
         {

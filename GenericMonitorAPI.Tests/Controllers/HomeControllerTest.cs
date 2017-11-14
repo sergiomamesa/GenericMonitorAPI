@@ -1,6 +1,5 @@
 ﻿using System.Web.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using GenericMonitorAPI;
 using GenericMonitorAPI.Controllers;
 
 namespace GenericMonitorAPI.Tests.Controllers

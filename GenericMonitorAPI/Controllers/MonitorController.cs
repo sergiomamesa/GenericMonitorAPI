@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
+﻿using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
 using GenericMonitorAPI.Context;
@@ -16,7 +9,7 @@ namespace GenericMonitorAPI.Controllers
 
     public class MonitorController : ApiController
     {
-        private GenericMonitorAPIContext db = new GenericMonitorAPIContext();
+        private readonly GenericMonitorAPIContext db = new GenericMonitorAPIContext();
 
         protected MonitorController()
         {
@@ -46,6 +39,7 @@ namespace GenericMonitorAPI.Controllers
         {
             if (disposing)
                 db.Dispose();
+
             base.Dispose(disposing);
         }
     }
