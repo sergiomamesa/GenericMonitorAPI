@@ -189,30 +189,19 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MonitorController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Context\GenericMonitorAPIContext.cs" />
-    <Compile Include="Migrations\201711141605537_Migration_Initial.cs" />
-    <Compile Include="Migrations\201711141605537_Migration_Initial.Designer.cs">
-      <DependentUpon>201711141605537_Migration_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711141612484_Migration_RemoveUsersFromRole.cs" />
-    <Compile Include="Migrations\201711141612484_Migration_RemoveUsersFromRole.Designer.cs">
-      <DependentUpon>201711141612484_Migration_RemoveUsersFromRole.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711141614128_Migration_AddUsersFromRole.cs" />
-    <Compile Include="Migrations\201711141614128_Migration_AddUsersFromRole.Designer.cs">
-      <DependentUpon>201711141614128_Migration_AddUsersFromRole.cs</DependentUpon>
+    <Compile Include="Migrations\201711150845332_Migration_Initial.cs" />
+    <Compile Include="Migrations\201711150845332_Migration_Initial.Designer.cs">
+      <DependentUpon>201711150845332_Migration_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\IMonitorizable.cs" />
     <Compile Include="Models\Monitorization.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\User.cs" />
-    <Compile Include="Models\UserRole.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\PrincipalAuthenticationService.cs" />
   </ItemGroup>
@@ -287,14 +276,8 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201711141605537_Migration_Initial.resx">
-      <DependentUpon>201711141605537_Migration_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711141612484_Migration_RemoveUsersFromRole.resx">
-      <DependentUpon>201711141612484_Migration_RemoveUsersFromRole.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711141614128_Migration_AddUsersFromRole.resx">
-      <DependentUpon>201711141614128_Migration_AddUsersFromRole.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201711150845332_Migration_Initial.resx">
+      <DependentUpon>201711150845332_Migration_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

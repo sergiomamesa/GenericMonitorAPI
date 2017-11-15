@@ -1,8 +1,10 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Description;
 using GenericMonitorAPI.Context;
 using GenericMonitorAPI.API.Filters;
+using GenericMonitorAPI.Models;
 
 namespace GenericMonitorAPI.Controllers
 {
@@ -13,6 +15,7 @@ namespace GenericMonitorAPI.Controllers
 
         protected MonitorController()
         {
+
         }
 
         [AllowAnonymous]
@@ -21,7 +24,7 @@ namespace GenericMonitorAPI.Controllers
             return db.Monitorizations;
         }
 
-        [Authorize(Roles = "Writer")]
+        //[Authorize(Roles = "Writer")]
         [SimpleAuthenticationFilter]
         [ResponseType(typeof(Monitorization))]
         public IHttpActionResult PostMonitorization(Monitorization monitorization)
