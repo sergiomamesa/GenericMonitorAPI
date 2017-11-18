@@ -8,7 +8,6 @@ using GenericMonitorAPI.Models;
 
 namespace GenericMonitorAPI.Controllers
 {
-
     public class MonitorController : ApiController
     {
         private readonly GenericMonitorAPIContext db = new GenericMonitorAPIContext();
@@ -24,8 +23,9 @@ namespace GenericMonitorAPI.Controllers
             return db.Monitorizations;
         }
 
-        //[Authorize(Roles = "Writer")]
-        [SimpleAuthenticationFilter]
+        [TokenAuthenticationFilter]
+        [Authorize(Roles = "Writer")]
+
         [ResponseType(typeof(Monitorization))]
         public IHttpActionResult PostMonitorization(Monitorization monitorization)
         {

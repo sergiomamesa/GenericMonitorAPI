@@ -9,7 +9,7 @@ using System.Web.Http.Filters;
 namespace GenericMonitorAPI.API.Filters
 {
 
-    public class SimpleAuthenticationFilter : Attribute, IAuthenticationFilter
+    public class TokenAuthenticationFilter : Attribute, IAuthenticationFilter
     {
         private const string SCHEME = "Basic";
 

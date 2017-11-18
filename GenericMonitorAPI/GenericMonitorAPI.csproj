@@ -152,7 +152,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\Filters\SimpleAuthenticationFilter.cs" />
+    <Compile Include="API\Filters\TokenAuthenticationFilter.cs" />
     <Compile Include="API\Results\AddChallengeOnUnauthorizedResult.cs" />
     <Compile Include="API\Results\AuthenticationErrorResult.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -193,7 +193,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Context\GenericMonitorAPIContext.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\IMonitorizable.cs" />
     <Compile Include="Models\Monitorization.cs" />
     <Compile Include="Models\Role.cs" />
